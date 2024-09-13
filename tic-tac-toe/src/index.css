@@ -20,3 +20,7 @@ body {
   padding: 24px;
   margin: auto;
 }
+
+button {
+  padding: 0;
+}

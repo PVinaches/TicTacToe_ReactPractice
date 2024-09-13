@@ -6,9 +6,17 @@ import './App.css';
 function App() {
 
   const [activePlayer, setActivePlayer] = useState("X");
+  const [gameTurns, setGameTurns] = useState([]);
 
-  function handlePlayer() {
+  function handlePlayer(rowIndex, colIndex) {
     setActivePlayer((currentPlayer) => currentPlayer === "X" ? "O" : "X");
+    setGameTurns((prevTurns) => {
+      const currentPlayer = prevTurns.length > 0 && prevTurns[0].player === "X" ? "O" : "X";
+
+      const updatedTurns = [{square: {row: rowIndex, col: colIndex}, player: currentPlayer}, ...prevTurns];
+      
+      return updatedTurns
+    });
   }
 
   return <main>
@@ -19,7 +27,7 @@ function App() {
         <Player name ="Player 2" symbol="0" isActive={activePlayer === "O"} />
       </div>
 
-      <GameBoard onHandlePlayer={handlePlayer} currentPlayer={activePlayer} />
+      <GameBoard onHandlePlayer={handlePlayer} turns={gameTurns} />
     
     </div>
 

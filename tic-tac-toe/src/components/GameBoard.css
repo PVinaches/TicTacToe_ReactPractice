@@ -1,0 +1,31 @@
+.game-board {
+  margin: auto;
+  margin-top: 36px;
+  inline-size: fit-content;
+
+  > li {
+    display: flex;
+    flex-direction: column;
+
+    > ol {
+      display: flex;
+      flex-direction: row;
+
+      > li {
+        margin: 8px;
+      }
+    }
+  }
+
+  button {
+    width: 60px;
+    height: 60px;
+    border: 1px solid darkblue;
+    border-radius: 8px;
+    font-size: 32px;
+  }
+
+  li::marker {
+    content:"";
+  }
+}

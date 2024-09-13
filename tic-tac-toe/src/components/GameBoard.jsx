@@ -1,19 +1,21 @@
+import PropTypes from 'prop-types';
 import { useState } from "react";
-
 import './GameBoard.css';
 
 const initialGameBoard = Array(3).fill().map(() => Array(3).fill());
 
-export default function GameBoard() {
+export default function GameBoard({ onHandlePlayer, currentPlayer }) {
 
   const [gameBoard, setGameBoard] = useState(initialGameBoard);
 
   function handleAddSymbol(rowIndex, colIndex) {
     setGameBoard((prevGameBoard) => {
-      const newBoard = [...prevGameBoard];
-      newBoard[rowIndex][colIndex] = 'X';
+      const newBoard = [...prevGameBoard.map(innerArray => [...innerArray])];
+      newBoard[rowIndex][colIndex] = currentPlayer;
       return newBoard;
     });
+
+    onHandlePlayer();
   };
 
   return (
@@ -33,3 +35,8 @@ export default function GameBoard() {
     </ol>
   );
 }
+
+GameBoard.propTypes = {
+  onHandlePlayer: PropTypes.func.isRequired,
+  currentPlayer: PropTypes.string.isRequired
+};

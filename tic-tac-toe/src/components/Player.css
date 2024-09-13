@@ -11,6 +11,11 @@
   flex-direction: column;
   justify-content: space-around;
   text-align: center;
+  
+  &.active {
+    color: blueviolet;
+    font-weight: 600;
+  }
 }
 
 .player-name {

@@ -1,8 +1,8 @@
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import './Player.css';
-import PropTypes from 'prop-types';
 
-export default function Player({ name, symbol }) {
+export default function Player({ name, symbol, isActive }) {
 
   const [isEditing, setIsEditing] = useState(false);
   const [playerName, setPlayerName] = useState(name);
@@ -22,7 +22,7 @@ export default function Player({ name, symbol }) {
 
   return (
     <div className="player-box">
-      <div className="player">
+      <div className={isActive ? "player active" : "player"} >
         {editablePlayerName}
         <span className="player-symbol">{symbol}</span>
       </div>
@@ -33,6 +33,7 @@ export default function Player({ name, symbol }) {
 
 Player.propTypes = {
   name: PropTypes.string.isRequired,
-  symbol: PropTypes.string.isRequired
+  symbol: PropTypes.string.isRequired,
+  isActive: PropTypes.any
 };
 

@@ -4,3 +4,14 @@ main {
   padding: 24px;
   background-color: antiquewhite;
 }
+
+#players {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 75%;
+  margin: auto;
+  color: chocolate;
+  background-color: black;
+  padding: 24px 0;
+}

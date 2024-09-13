@@ -1,0 +1,33 @@
+.player-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  text-align: center;
+  gap: 16px;
+}
+
+.player {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.player-name {
+  font-size: 20px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.player-symbol {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+button.edit {
+ height: max-content;
+ width: fit-content;
+ padding: 8px;
+ border-radius: 8px;
+ align-self: center;
+}

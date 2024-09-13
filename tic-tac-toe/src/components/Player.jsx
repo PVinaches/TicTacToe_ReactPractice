@@ -21,8 +21,8 @@ export default function Player({ name, symbol, isActive }) {
 
 
   return (
-    <div className="player-box">
-      <div className={isActive ? "player active" : "player"} >
+    <div className={isActive ? "player-box active" : "player-box"} >
+      <div className="player" >
         {editablePlayerName}
         <span className="player-symbol">{symbol}</span>
       </div>

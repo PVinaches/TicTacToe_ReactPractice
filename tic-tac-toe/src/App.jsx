@@ -4,6 +4,8 @@ import GameBoard from './components/GameBoard'
 import Log from './components/Log';
 import './App.css';
 
+const initialGameBoard = Array(3).fill().map(() => Array(3).fill());
+
 function App() {
 
   const [gameTurns, setGameTurns] = useState([]);
@@ -14,8 +16,16 @@ function App() {
 
       const updatedTurns = [{square: {row: rowIndex, col: colIndex}, player: currentPlayer}, ...prevTurns];
       
-      return updatedTurns
+      return updatedTurns;
     });
+  }
+
+  const gameBoard = initialGameBoard;
+
+  for (const turn of gameTurns) {
+    const { square, player } = turn;
+    const { row, col } = square;
+    gameBoard[row][col] = player;
   }
 
   return <main>
@@ -26,7 +36,7 @@ function App() {
         <Player name ="Player 2" symbol="0" isActive={gameTurns.length > 0 ? gameTurns[0].player === "X" : false} />
       </div>
 
-      <GameBoard onHandlePlayer={handlePlayer} turns={gameTurns} />
+      <GameBoard onHandlePlayer={handlePlayer} board={gameBoard} />
 
       <Log turns={gameTurns} /> 
     

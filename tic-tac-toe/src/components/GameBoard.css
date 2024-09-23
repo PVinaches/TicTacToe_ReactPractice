@@ -3,9 +3,11 @@
   margin-top: 36px;
   inline-size: fit-content;
 
-  > li {
+  > ol {
     display: flex;
     flex-direction: column;
+    margin: 0;
+    padding-left: 0;
 
     > div {
       display: flex;
@@ -27,6 +29,9 @@
     border: 1px solid darkblue;
     border-radius: 8px;
     font-size: 32px;
+    &:disabled {
+      color: darkblue;
+    }
   }
 
   li::marker {

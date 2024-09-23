@@ -7,10 +7,6 @@ html, body {
   margin: 0;
 }
 
-html {
-  overflow: hidden;
-}
-
 body {
   background-color: darksalmon;
 }

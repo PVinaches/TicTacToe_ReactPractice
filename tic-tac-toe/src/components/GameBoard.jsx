@@ -21,15 +21,15 @@ export default function GameBoard({ onHandlePlayer, turns }) {
   return (
     <div className="game-board">
       {gameBoard.map((row, rowIndex) => (
-        <li key={rowIndex}>
+        <ol key={rowIndex}>
           <div>
             {row.map((playerSymbol, colIndex) => (
               <li key={colIndex}>
-                <button onClick={() => handleAddSymbol(rowIndex, colIndex)}>{playerSymbol}</button>
+                <button onClick={() => handleAddSymbol(rowIndex, colIndex)} disabled={playerSymbol != undefined}>{playerSymbol}</button>
               </li>
             ))}
           </div>
-        </li>
+        </ol>
         )
       )}
     </div>

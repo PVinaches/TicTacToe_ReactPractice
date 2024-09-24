@@ -14,4 +14,15 @@ main {
   color: chocolate;
   background-color: black;
   padding: 24px 0;
+
+  @media (max-width: 700px) and (min-width: 550px) {
+    width: 90%;
+  }
+
+  @media (max-width: 550px) {
+    width: inherit;
+    flex-direction: column;
+    padding: 16px;
+    gap: 16px;
+  }
 }

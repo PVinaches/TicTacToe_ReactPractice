@@ -1,12 +1,14 @@
 import { useState } from 'react';
+
 import Player from './components/Player';
 import GameBoard from './components/GameBoard'
 import Log from './components/Log';
+
 import './App.css';
 
-const initialGameBoard = Array(3).fill().map(() => Array(3).fill());
+import { InitialGameBoard, InitialPlayers } from './assets/constants';
 
-function checkWinner(board) {
+function checkEndConditions(board, turnsLength) {
   // Diagonals winning conditions
   if ((board[0][0] == board[1][1] && board[0][0] == board[2][2]) || 
     (board[0][2] == board[1][1] && board[0][2] == board[2][0])) {
@@ -24,55 +26,70 @@ function checkWinner(board) {
     }
   }
 
+  // Draw condition
+  if (turnsLength > 8) {
+    return 'draw';
+  }
+
+  // No winner yet
   return undefined;
 }
 
-function App() {
+function obtainGameBoard(turns) {
+  const gameBoard = [...InitialGameBoard.map(array => [...array])];
 
+  for (const turn of turns) {
+    const { square, player } = turn;
+    const { row, col } = square;
+    gameBoard[row][col] = player;
+  }
+
+  return gameBoard;
+}
+
+function App() {
   const [gameTurns, setGameTurns] = useState([]);
-  const [win, setWin] = useState(undefined);
 
   function handlePlayer(rowIndex, colIndex) {
     setGameTurns((prevTurns) => {
       const currentPlayer = prevTurns.length > 0 && prevTurns[0].player === "X" ? "O" : "X";
 
       const updatedTurns = [{square: {row: rowIndex, col: colIndex}, player: currentPlayer}, ...prevTurns];
-
-      // Check if winner
-      const winner = checkWinner(gameBoard);
-      if (winner != undefined) setWin(winner);
-
-      // Check if draw
-      if (updatedTurns.length > 8 && winner == undefined) {
-        setWin('draw');
-      }
       
       return updatedTurns;
     });
   }
 
-  const gameBoard = [...initialGameBoard.map(array => [...array])];
+  const gameBoard = obtainGameBoard(gameTurns);
 
-  for (const turn of gameTurns) {
-    const { square, player } = turn;
-    const { row, col } = square;
-    gameBoard[row][col] = player;
+  // Check if winner / draw
+  const win = checkEndConditions(gameBoard, gameTurns.length);
+
+  const [players, setPlayers] = useState(InitialPlayers);
+
+  function updatePlayersHandler(symbol, newName) {
+    setPlayers(prevPlayers => {
+      return {
+        ...prevPlayers,
+        [symbol] : newName
+      }
+    });
   }
 
   return <main>
     <div id="game-container">
       
       <div id="players">
-        <Player name ="Player 1" symbol="X" isActive={gameTurns.length > 0 ? gameTurns[0].player === "O" : true} />
-        <Player name ="Player 2" symbol="0" isActive={gameTurns.length > 0 ? gameTurns[0].player === "X" : false} />
+        <Player name ={players.X} symbol="X" changeNameHandler={updatePlayersHandler} isActive={gameTurns.length > 0 ? gameTurns[0].player === "O" : true} />
+        <Player name ={players.O} symbol="O" changeNameHandler={updatePlayersHandler} isActive={gameTurns.length > 0 ? gameTurns[0].player === "X" : false} />
       </div>
 
       {win == 'draw' && <p>Game finished in draw!</p>}
-      {win != undefined && <p>Game won by {win}!</p>}
+      {win != undefined && win != 'draw' && <p>Game won by {win}!</p>}
 
       <GameBoard onHandlePlayer={handlePlayer} board={gameBoard} />
 
-      <Log turns={gameTurns} /> 
+      <Log turns={gameTurns} players={players} /> 
     
     </div>
 

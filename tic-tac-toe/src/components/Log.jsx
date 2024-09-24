@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import './Log.css';
 
-export default function Log({ turns }) {
+export default function Log({ turns, players }) {
   if (turns && turns.length > 0) {    
     return (
       <>
@@ -16,7 +16,7 @@ export default function Log({ turns }) {
           <tbody>
             {turns.map((turn, i) => (
               <tr key={i}>
-                <td>{turn.player}</td>
+                <td>{players[turn.player]}</td>
                 <td>{turn.square.row} : {turn.square.col}</td>
               </tr>
             ))}
@@ -28,5 +28,6 @@ export default function Log({ turns }) {
 }
 
 Log.propTypes = {
-  turns: PropTypes.any
+  turns: PropTypes.any,
+  players: PropTypes.object
 };

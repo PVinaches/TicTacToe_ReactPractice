@@ -2,22 +2,23 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import './Player.css';
 
-export default function Player({ name, symbol, isActive }) {
+export default function Player({ name, symbol, changeNameHandler, isActive }) {
 
   const [isEditing, setIsEditing] = useState(false);
   const [playerName, setPlayerName] = useState(name);
 
   function editClickHandler() {
     setIsEditing((editing) => !editing);
+    changeNameHandler(symbol, playerName);
   }
 
-  function changeNameHandler(event) {
+  function nameHandler(event) {
     setPlayerName(event.target.value);
   }
 
   let editablePlayerName = <span className="player-name">{playerName}</span>;
 
-  if (isEditing) editablePlayerName = <input type='text' required value={playerName} onChange={changeNameHandler} />;
+  if (isEditing) editablePlayerName = <input type='text' required value={playerName} onChange={nameHandler} />;
 
 
   return (
@@ -34,6 +35,7 @@ export default function Player({ name, symbol, isActive }) {
 Player.propTypes = {
   name: PropTypes.string.isRequired,
   symbol: PropTypes.string.isRequired,
+  changeNameHandler: PropTypes.func.isRequired,
   isActive: PropTypes.any
 };
 

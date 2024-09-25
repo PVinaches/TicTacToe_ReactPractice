@@ -38,4 +38,8 @@ button.edit {
  padding: 8px;
  border-radius: 8px;
  align-self: center;
+ background-color: burlywood;
+ &:disabled {
+    background-color: darkgrey;
+  }
 }

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Player from './components/Player';
 import GameBoard from './components/GameBoard'
 import Log from './components/Log';
+import EndGame from './components/EndGame';
 
 import './App.css';
 
@@ -60,6 +61,10 @@ function App() {
     });
   }
 
+  function restartGame() {
+    setGameTurns([]);
+  }
+
   const gameBoard = obtainGameBoard(gameTurns);
 
   // Check if winner / draw
@@ -80,14 +85,14 @@ function App() {
     <div id="game-container">
       
       <div id="players">
-        <Player name ={players.X} symbol="X" changeNameHandler={updatePlayersHandler} isActive={gameTurns.length > 0 ? gameTurns[0].player === "O" : true} />
-        <Player name ={players.O} symbol="O" changeNameHandler={updatePlayersHandler} isActive={gameTurns.length > 0 ? gameTurns[0].player === "X" : false} />
+        <Player name ={players.X} symbol="X" changeNameHandler={updatePlayersHandler} isActive={gameTurns.length > 0 ? gameTurns[0].player === "O" : true} block={win!=undefined ? true : false} />
+        <Player name ={players.O} symbol="O" changeNameHandler={updatePlayersHandler} isActive={gameTurns.length > 0 ? gameTurns[0].player === "X" : false} block={win!=undefined ? true : false} />
       </div>
 
-      {win == 'draw' && <p>Game finished in draw!</p>}
-      {win != undefined && win != 'draw' && <p>Game won by {win}!</p>}
+      {win != undefined && 
+        <EndGame win={win} restartGame={restartGame} />}
 
-      <GameBoard onHandlePlayer={handlePlayer} board={gameBoard} />
+      <GameBoard onHandlePlayer={handlePlayer} board={gameBoard} block={win!=undefined ? true : false} />
 
       <Log turns={gameTurns} players={players} /> 
     

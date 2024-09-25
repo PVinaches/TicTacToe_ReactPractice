@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import './Player.css';
 
-export default function Player({ name, symbol, changeNameHandler, isActive }) {
+export default function Player({ name, symbol, changeNameHandler, isActive, block }) {
 
   const [isEditing, setIsEditing] = useState(false);
   const [playerName, setPlayerName] = useState(name);
@@ -27,7 +27,7 @@ export default function Player({ name, symbol, changeNameHandler, isActive }) {
         {editablePlayerName}
         <span className="player-symbol">{symbol}</span>
       </div>
-      <button className="edit" onClick={editClickHandler}>{isEditing ? "SAVE" : "EDIT"}</button>
+      <button className="edit" onClick={editClickHandler} disabled={block}>{isEditing ? "SAVE" : "EDIT"}</button>
     </div>
   );
 }
@@ -36,6 +36,7 @@ Player.propTypes = {
   name: PropTypes.string.isRequired,
   symbol: PropTypes.string.isRequired,
   changeNameHandler: PropTypes.func.isRequired,
-  isActive: PropTypes.any
+  isActive: PropTypes.any,
+  block: PropTypes.bool.isRequired
 };
 

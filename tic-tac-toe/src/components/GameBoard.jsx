@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import './GameBoard.css';
 
-export default function GameBoard({ onHandlePlayer, board }) {
+export default function GameBoard({ onHandlePlayer, board, block }) {
   return (
     <div className="game-board">
       {board.map((row, rowIndex) => (
@@ -9,7 +9,7 @@ export default function GameBoard({ onHandlePlayer, board }) {
           <div>
             {row.map((playerSymbol, colIndex) => (
               <li key={colIndex}>
-                <button onClick={() => onHandlePlayer(rowIndex, colIndex)} disabled={playerSymbol != undefined}>{playerSymbol}</button>
+                <button onClick={() => onHandlePlayer(rowIndex, colIndex)} disabled={playerSymbol != undefined || block}>{playerSymbol}</button>
               </li>
             ))}
           </div>
@@ -22,5 +22,6 @@ export default function GameBoard({ onHandlePlayer, board }) {
 
 GameBoard.propTypes = {
   onHandlePlayer: PropTypes.func.isRequired,
-  board: PropTypes.array.isRequired
+  board: PropTypes.array.isRequired,
+  block: PropTypes.bool.isRequired
 };

@@ -1,15 +1,17 @@
 .end-game {
   position: absolute;
+  top: 20vh;
+  left: 10vw;
   background-color: darkgreen;
   width: 75%;
   padding: 24px;
   margin: auto;
-  position-area: center;
   height: 30vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  border-radius: 8px;
 
   p {
     font-size: 24px;

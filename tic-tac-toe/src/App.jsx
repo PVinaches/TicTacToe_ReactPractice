@@ -4,6 +4,7 @@ import Player from './components/Player';
 import GameBoard from './components/GameBoard'
 import Log from './components/Log';
 import EndGame from './components/EndGame';
+import ErrorBoundary from "./components/ErrorBoundary";
 
 import './App.css';
 
@@ -83,18 +84,23 @@ function App() {
 
   return <main>
     <div id="game-container">
-      
       <div id="players">
-        <Player name ={players.X} symbol="X" changeNameHandler={updatePlayersHandler} isActive={gameTurns.length > 0 ? gameTurns[0].player === "O" : true} block={win!=undefined ? true : false} />
-        <Player name ={players.O} symbol="O" changeNameHandler={updatePlayersHandler} isActive={gameTurns.length > 0 ? gameTurns[0].player === "X" : false} block={win!=undefined ? true : false} />
+        <Player name ={players.X} symbol="X" changeNameHandler={updatePlayersHandler} 
+          isActive={gameTurns && gameTurns.length > 0 ? gameTurns[0].player === "O" : true} block={win!=undefined ? true : false} />  
+        <Player name ={players.O} symbol="O" changeNameHandler={updatePlayersHandler} 
+          isActive={gameTurns && gameTurns.length > 0 ? gameTurns[0].player === "X" : false} block={win!=undefined ? true : false} />
       </div>
 
       {win != undefined && 
         <EndGame win={win} restartGame={restartGame} />}
 
-      <GameBoard onHandlePlayer={handlePlayer} board={gameBoard} block={win!=undefined ? true : false} />
+      <ErrorBoundary>
+        <GameBoard onHandlePlayer={handlePlayer} board={gameBoard} block={win!=undefined ? true : false} />
+      </ErrorBoundary>
 
-      <Log turns={gameTurns} players={players} /> 
+      <ErrorBoundary>
+        <Log turns={gameTurns} players={players} /> 
+      </ErrorBoundary>
     
     </div>
 
